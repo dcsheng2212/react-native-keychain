@@ -90,6 +90,7 @@ type BaseOptions = {|
   securityLevel?: SecMinimumLevel,
   storage?: SecStorageType,
   rules?: SecSecurityRules,
+  synchronized?: boolean,
 |};
 
 type NormalizedOptions = {
