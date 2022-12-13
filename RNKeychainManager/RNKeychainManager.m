@@ -223,13 +223,13 @@ SecAccessControlCreateFlags accessControlValue(NSDictionary *options)
   });
 }
 
-- (OSStatus)deletePasswordsForService:(NSString *)service withOptions:(NSDictionary * __nullable)options
+- (OSStatus)deletePasswordsForService:(NSString *)service
 {
   NSDictionary *query = @{
     (__bridge NSString *)kSecClass: (__bridge id)(kSecClassGenericPassword),
     (__bridge NSString *)kSecAttrService: service,
     (__bridge NSString *)kSecReturnAttributes: (__bridge id)kCFBooleanTrue,
-    (__bridge NSString *)kSecAttrSynchronizable: (__bridge id)(options[@"synchronized"] ? kCFBooleanTrue : kCFBooleanFalse),
+    (__bridge NSString *)kSecAttrSynchronizable: (__bridge id)kCFBooleanTrue,
     (__bridge NSString *)kSecReturnData: (__bridge id)kCFBooleanFalse
   };
 
@@ -298,7 +298,7 @@ RCT_EXPORT_METHOD(setGenericPasswordForOptions:(NSDictionary *)options withUsern
     (__bridge NSString *)kSecValueData: [password dataUsingEncoding:NSUTF8StringEncoding]
   };
 
-  [self deletePasswordsForService:service withOptions:options];
+  [self deletePasswordsForService:service];
 
   [self insertKeychainEntry:attributes withOptions:options resolver:resolve rejecter:reject];
 }
